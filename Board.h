@@ -29,6 +29,7 @@ class Board{
 
         int getInput(){
             keypad(board_win, true);
+            halfdelay(5);
             return wgetch(board_win);
         }
         void clear(){
