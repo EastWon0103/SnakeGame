@@ -2,6 +2,10 @@
 #include "Board.h"
 #include "ScoreBoard.h"
 #include "Snake.h"
+#include <time.h>
+#include <random>
+#include <unistd.h>
+#include <random>
 #ifndef __SNAKE_GAME__
 #define __SNAKE_GAME__
 
@@ -24,31 +28,41 @@ class SnakeGame{
             board.init();
             readBoard();
             game_over = false;
+            gItemNum = 0;
+            pItemNum = 0;
+        }
+
+        void delay(int t){
+            usleep(t);
         }
 
         void processInput(){
             int input = board.getInput();
             switch(input){
                 case KEY_LEFT:
-                    setDirection(LEFT);
-                    goDirection();
+                    if(direction!=LEFT){
+                        setDirection(LEFT);
+                    }
                     break;
                 case KEY_RIGHT:
-                    setDirection(RIGHT);
-                    goDirection();
+                    if(direction!=RIGHT){
+                        setDirection(RIGHT);
+                    }
                     break;
                 case KEY_DOWN:
-                    setDirection(DOWN);
-                    goDirection();
+                    if(direction!=DOWN){
+                        setDirection(DOWN);
+                    }
                     break;
                 case KEY_UP:
-                    setDirection(UP);
-                    goDirection();
+                    if(direction!=UP){
+                        setDirection(UP);
+                    }
                     break;
                 default:
-                    goDirection();
                     break;
             }
+            goDirection();
             board.clear();
             readBoard();
         }
@@ -66,6 +80,17 @@ class SnakeGame{
             if ((referPoint=='1')||(referPoint=='4')){
                 game_over = true;
                 return true;
+            } else if(referPoint=='G'){
+                gItemNum--;
+                snake.plusBody();
+                return false;
+            } else if(referPoint=='P'){
+                pItemNum--;
+                int minusY = snake[snake.getLength()-1].getYposition();
+                int minusX = snake[snake.getLength()-1].getXposition();
+                snake.minusBody();
+                gameBoard[minusY][minusX] = '0';
+                return false;
             } else {
                 return false;
             }
@@ -119,11 +144,53 @@ class SnakeGame{
                         board.addAt(i,j*2,'3');
                     } else if(point == '4'){
                         board.addAt(i,j*2,'4');
+                    } else if(point =='G'){
+                        board.addAt(i,j*2,'G');
+                    } else if(point == 'P'){
+                        board.addAt(i,j*2,'P');
                     }
                 }
             }
 
         };
+        
+
+        void makeGItem(){            
+            if(gItemNum<3){
+                int y = rand()%19+1;
+                int x = rand()%19+1;
+                while(true){
+                    char refer = gameBoard[y][x];
+                    if(refer=='0'){
+                        gameBoard[y][x] = 'G';
+                        ++gItemNum;
+                        break;
+                    } else {
+                        y = rand()%19+1;
+                        x = rand()%19+1;
+                    }
+                }
+
+            }
+        }
+        void makePItem(){            
+            if(pItemNum<3){
+                int y = rand()%19+1;
+                int x = rand()%19+1;
+                while(true){
+                    char refer = gameBoard[y][x];
+                    if(refer=='0'){
+                        gameBoard[y][x] = 'P';
+                        ++pItemNum;
+                        break;
+                    } else {
+                        y = rand()%19+1;
+                        x = rand()%19+1;
+                    }
+                }
+
+            }
+        }
         void snakeOnBoard(Snake s){
             for(int i=0;i<s.getLength();i++){
                 int y= s[i].getYposition();
@@ -152,6 +219,8 @@ class SnakeGame{
         DIRECTION direction;
         Snake snake;
         int score;
+        int gItemNum;
+        int pItemNum;
         char gameBoard[21][21] = {
             {'1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1','1'},
             {'1','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','1'},

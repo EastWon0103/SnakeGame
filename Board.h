@@ -40,6 +40,10 @@ class Board{
         void refresh(){
             wrefresh(board_win);
         }
+
+        WINDOW* boardReturn(){
+            return board_win;
+        }
     private:
         WINDOW *board_win;
 };

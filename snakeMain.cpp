@@ -1,6 +1,6 @@
 #include <ncurses.h>
-#include "Board.h"
 #include "SnakeGame.h"
+#include "resultWindow.h"
 
 #define BOARD_DIM 21
 #define BOARD_ROW BOARD_DIM
@@ -15,11 +15,22 @@ int main(){
     SnakeGame game(BOARD_ROW, BOARD_COL);
     while(!game.isOver()){
         game.processInput();
+        game.makeGItem();
+        game.makePItem();
         game.updateState();
         game.redraw();
     }
-    game.redraw();
-    getch();
+    ResultWindow result;
+    result.init();
+    while(true){
+        int c = result.getInput();
+        if (c!=-1){
+            break;
+        }
+    }
+    
+    
+
     endwin();
 
     return 0;

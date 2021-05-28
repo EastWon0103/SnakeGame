@@ -27,6 +27,18 @@ class Snake{
             return length;
         }
 
+        void plusBody(){
+            int y = body[getLength()-1].getYposition();
+            int x = body[getLength()-1].getXposition();
+            SnakeBody b(y,x,TAIL);
+            body.push_back(b);
+            length++;
+        }
+        void minusBody(){
+            length--;
+            body.pop_back();
+        }
+
     private:
         int length;
         vector <SnakeBody> body;
