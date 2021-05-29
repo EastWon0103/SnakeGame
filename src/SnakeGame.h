@@ -37,9 +37,13 @@ public:
     void gameOver();
     void setDirection(DIRECTION d);
     void setTimeScore();
+    int getTimeScore();
     void setInnerWall();
     bool makeGateCheck(int num);
     void makeGate();
+    void clearGate();
+    bool isGate();
+
 
 private:
     Score *score;
@@ -56,11 +60,13 @@ private:
     //여기도 추가했음
     vector<int> wallYPosition;
     vector<int> wallXPosition;
-    int gate1Y;
-    int gate1X;
-    int gate2Y;
-    int gate2X;
-    // gameboard의 가장자리 2로 수정 
+    int gate1Y = -1;
+    int gate1X = -1;
+    int gate2Y = -1;
+    int gate2X = -1;
+    int offsetX[4] = {0,1,0,-1};
+    int offsetY[4] = {-1,0,1,0};
+    // gameboard의 가장자리 2로 수정
     char gameBoard[21][21] = {
                 {'2', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2'},
                 {'1', '0', '0', 'g', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
@@ -84,6 +90,7 @@ private:
                 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
                 {'2', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2'}
             };
+
 };
 
 

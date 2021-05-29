@@ -31,6 +31,7 @@ SnakeGame::SnakeGame(int height, int width)
     gItemNum = 0;
     pItemNum = 0;
 
+
     //포지션 값 넣어주는 거 추가했음
     for (int y = 0; y < 21; y++)
     {
@@ -43,8 +44,7 @@ SnakeGame::SnakeGame(int height, int width)
             }
         }
     }
-    makeGate(); //gate test
-                // 여기까지
+
 }
 
 SnakeGame::~SnakeGame()
@@ -166,6 +166,37 @@ bool SnakeGame::checkGate(int y, int x)
         return false;
     }
 }
+
+bool SnakeGame::isGate(){
+
+    //body의 포지션과 gate의 포지션으로 비교하려고 했으나, body의 좌표는 한번 생성 후에 움직일때마다 초기화 되지 않음,-> 이게 정확한 방법인데 효율성이 떨어짐.
+//    for(int i=0; i<snake->getLength()-1; i++){
+//        if(gate1Y == (*snake)[i].getYposition() && gate1X == (*snake)[i].getXposition()){
+//            return true;
+//        }else if(gate2Y == (*snake)[i].getYposition() && gate2X == (*snake)[i].getXposition()){
+//            return true;
+//        }
+//    }
+
+    //범위 오류가 나야하는데 왜 안나지..? 한가지 버그가 있는데 들어가는게 아니라 거기 주변을 지나가고 있어도 생성되지 않을거임.
+    for(int i=0; i<4; i++){
+
+        if( (gameBoard[gate1Y+offsetY[i]][gate1X+offsetX[i]] == '3' ||gameBoard[gate1Y+offsetY[i]][gate1X+offsetX[i]] == '4') ){
+            return true;
+        }
+        if(  (gameBoard[gate2Y+offsetY[i]][gate1X+offsetX[i]] == '3' ||gameBoard[gate2Y+offsetY[i]][gate2X+offsetX[i]] == '4') ){
+            return true;
+        }
+    }
+
+    //(gate1Y+offsetY[i] >= 0 && gate1X+offsetX[i] >= 20) &&
+    //(gate2Y+offsetY[i] >= 0 && gate2X+offsetX[i] >= 20) &&
+
+
+    return false;
+
+}
+
 
 int SnakeGame::gateHeadY(int referY, int referX)
 {
@@ -662,6 +693,10 @@ void SnakeGame::setTimeScore()
     score->second++;
 }
 
+int SnakeGame::getTimeScore() {{
+        return score->second;
+}}
+
 void SnakeGame::setInnerWall()
 {
     srand(time(NULL));
@@ -771,7 +806,16 @@ void SnakeGame::makeGate()
             break;
         }
     }
-
     gameBoard[gate1Y][gate1X] = '9';
     gameBoard[gate2Y][gate2X] = '9';
+}
+
+void SnakeGame::clearGate(){
+
+    if(gate1Y == -1){
+        return;
+    }
+    gameBoard[gate1Y][gate1X] = '1';
+    gameBoard[gate2Y][gate2X] = '1';
+
 }

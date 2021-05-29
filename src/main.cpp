@@ -14,6 +14,7 @@
 // gameboard의 가장자리 1->2로 수정
 // gate추가 
 // gate 테스트중임
+// 게이트 랜덤하게 생성++ 지나고 있으면 생성되지 않음,
 int main(){
     initscr();
     refresh();
@@ -22,10 +23,12 @@ int main(){
     curs_set(0);
     time_t start = time(NULL);
     time_t scoreStart = time(NULL);
+    time_t wallStart = time(NULL);
     SnakeGame game(BOARD_ROW, BOARD_COL);
     while(!game.isOver()){
         time_t checkPoint = time(NULL);
         time_t timeScore = time(NULL);
+        time_t wallEnd = time(NULL);
         if((double)(timeScore-scoreStart) >= 1){
             scoreStart = time(NULL);
             game.setTimeScore();
@@ -37,6 +40,20 @@ int main(){
             game.makePItem();
             start = time(NULL);
         }
+
+        if((double)(wallEnd-wallStart) >= 4){
+            if(game.isGate()){
+                wallStart = time(NULL);
+            }else{
+                game.clearGate();
+                game.makeGate();
+                wallStart = time(NULL);
+            }
+
+
+        }
+
+
         game.updateState();
         game.redraw();
     }
