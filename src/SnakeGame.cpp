@@ -60,25 +60,37 @@ void SnakeGame::processInput()
     switch (input)
     {
     case KEY_LEFT:
-        if (direction != LEFT)
+        if (direction == RIGHT){
+            game_over = true;    
+        }
+        else if (direction != LEFT)
         {
             setDirection(LEFT);
         }
         break;
     case KEY_RIGHT:
-        if (direction != RIGHT)
+        if (direction == LEFT){
+            game_over = true;    
+        }
+        else if (direction != RIGHT)
         {
             setDirection(RIGHT);
         }
         break;
     case KEY_DOWN:
-        if (direction != DOWN)
+        if (direction == UP){
+            game_over = true;    
+        }
+        else if (direction != DOWN)
         {
             setDirection(DOWN);
         }
         break;
     case KEY_UP:
-        if (direction != UP)
+        if (direction == DOWN){
+            game_over = true;    
+        }
+        else if (direction != UP)
         {
             setDirection(UP);
         }
