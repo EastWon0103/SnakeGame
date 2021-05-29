@@ -4,13 +4,11 @@
 
 class Board{
     public:
-        Board(){
-
-        }
+        Board(){}
         Board(int height, int width){
             int xMax, yMax;
             getmaxyx(stdscr, yMax, xMax);
-            board_win = newwin(height, width, (yMax/2)-(height/2), (xMax/2)-(width/2));
+            board_win = newwin(height, width-1, (yMax/2)-(height/2), (xMax/3)-(width/3)); //-1 안하면 안됨 
             init();
         }
 
@@ -41,8 +39,8 @@ class Board{
             wrefresh(board_win);
         }
 
-        WINDOW* boardReturn(){
-            return board_win;
+        void erase(){
+            erase();
         }
     private:
         WINDOW *board_win;
