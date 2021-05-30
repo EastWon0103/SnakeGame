@@ -32,8 +32,8 @@ int main(){
         time_t timeScore = time(NULL);
         time_t wallEnd = time(NULL);
         time_t timeItemInitEnd = time(NULL);
-        time_t eatTimeEnd;
-        
+        time_t eatTimeEnd = time(NULL);
+
         if((double)(timeScore-scoreStart) >= 1){
             scoreStart = time(NULL);
             game.setTimeScore();
@@ -59,13 +59,18 @@ int main(){
             timeItemInitStart = time(NULL);
             game.clearTimeItem();
             game.makeTimeItem();
-            time_t eatTimeStart = time(NULL);
+        }
+
+        if(game.getEatStartStatus()){
+            eatTimeStart = time(NULL);
+            game.setEatStartStatus(false);
         }
 
         if((game.getEatTimeItem())&&((double)(eatTimeEnd-eatTimeStart)>=7)){
             game.setOriginDelayTime();
             game.setHalfDelay(game.getDelayTime());
             game.setEatTimeItem(false);
+            eatTimeStart = time(NULL);
         }
 
         game.updateState();

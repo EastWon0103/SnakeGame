@@ -5,6 +5,7 @@
 #include "ScoreBoard.h"
 #include "Mission.h"
 #include "Rank.h"
+#include <time.h>
 using namespace std;
 
 enum DIRECTION {
@@ -49,12 +50,15 @@ public:
     void setEatTimeItem(bool status);
     void makeTimeItem();
     void clearTimeItem();
-
+    
 
     int getDelayTime();
     void minusDelayTime();
     void setOriginDelayTime();
-    void setHalfDelay(int time); // 여기도
+    void setHalfDelay(int time);
+
+    bool getEatStartStatus();
+    void setEatStartStatus(bool status);
 
 
 private:
@@ -84,6 +88,8 @@ private:
     int tItemY;
     int tItemX;
     int delayTime;
+
+    bool eatStartStatus;
 
     // gameboard의 가장자리 2로 수정
     char gameBoard[21][21] = {

@@ -34,6 +34,7 @@ SnakeGame::SnakeGame(int height, int width)
     tItemY = -1;
     tItemX = -1;
     delayTime = 5;
+    eatStartStatus = false;
     setHalfDelay(delayTime);
 
 
@@ -147,6 +148,7 @@ bool SnakeGame::checkWB(int y, int x)
     else if(referPoint == 'T')
     {
         setEatTimeItem(true);
+        setEatStartStatus(true);
         minusDelayTime();
         setHalfDelay(getDelayTime());
         return false;
@@ -879,7 +881,14 @@ void SnakeGame::setOriginDelayTime(){
     delayTime = 5;
 }
 
-
 void SnakeGame::setHalfDelay(int time){
     halfdelay(time);
+}
+
+bool SnakeGame::getEatStartStatus(){
+    return eatStartStatus;
+}
+
+void SnakeGame::setEatStartStatus(bool status){
+    eatStartStatus = status;
 }
