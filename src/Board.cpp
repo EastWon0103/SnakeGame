@@ -27,7 +27,6 @@ void Board::addAt(int y, int x, chtype ch)
 int Board::getInput()
 {
     keypad(board_win, true);
-    halfdelay(5);
     return wgetch(board_win);
 }
 

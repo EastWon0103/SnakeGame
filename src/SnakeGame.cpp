@@ -30,6 +30,11 @@ SnakeGame::SnakeGame(int height, int width)
     game_over = false;
     gItemNum = 0;
     pItemNum = 0;
+    eatTimeItem = false;
+    tItemY = -1;
+    tItemX = -1;
+    delayTime = 5;
+    setHalfDelay(delayTime);
 
 
     //포지션 값 넣어주는 거 추가했음
@@ -137,6 +142,13 @@ bool SnakeGame::checkWB(int y, int x)
         int minusX = (*snake)[snake->getLength() - 1].getXposition();
         snake->minusBody();
         gameBoard[minusY][minusX] = '0';
+        return false;
+    }
+    else if(referPoint == 'T')
+    {
+        setEatTimeItem(true);
+        minusDelayTime();
+        setHalfDelay(getDelayTime());
         return false;
     }
     else
@@ -587,6 +599,10 @@ void SnakeGame::readBoard()
             { //임시로 게이트 출력하게 만듬
                 board.addAt(i, j * 2, '9');
             }
+            else if (point == 'T')
+            {
+                board.addAt(i, j * 2, 'T');
+            }
         }
     }
 }
@@ -818,4 +834,52 @@ void SnakeGame::clearGate(){
     gameBoard[gate1Y][gate1X] = '1';
     gameBoard[gate2Y][gate2X] = '1';
 
+}
+
+bool SnakeGame::getEatTimeItem(){
+    return eatTimeItem;
+}
+
+void SnakeGame::setEatTimeItem(bool status){
+    eatTimeItem = status;
+}
+
+void SnakeGame::clearTimeItem(){
+    if((tItemY!=-1)&&(tItemX!=-1)){
+        gameBoard[tItemY][tItemX] = '0';
+    }  
+}
+
+void SnakeGame::makeTimeItem(){
+    int y = rand()%18+1;
+    int x = rand()%18+1;
+    while(true){
+        char refer = gameBoard[y][x];
+        if (refer=='0'){
+            tItemY = y;
+            tItemX = x;
+            gameBoard[tItemY][tItemX] = 'T';
+            break;
+        } else{
+            y = rand()%18+1;
+            x = rand()%18+1;
+        }
+    }
+}
+
+int SnakeGame::getDelayTime(){
+    return delayTime;
+}
+void SnakeGame::minusDelayTime(){
+    if(!(delayTime-1 == 0)){
+        delayTime -= 2;
+    }
+}
+void SnakeGame::setOriginDelayTime(){
+    delayTime = 5;
+}
+
+
+void SnakeGame::setHalfDelay(int time){
+    halfdelay(time);
 }

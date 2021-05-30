@@ -45,6 +45,18 @@ public:
     bool isGate();
 
 
+    bool getEatTimeItem();
+    void setEatTimeItem(bool status);
+    void makeTimeItem();
+    void clearTimeItem();
+
+
+    int getDelayTime();
+    void minusDelayTime();
+    void setOriginDelayTime();
+    void setHalfDelay(int time); // 여기도
+
+
 private:
     Score *score;
     Mission *mission;
@@ -66,6 +78,13 @@ private:
     int gate2X = -1;
     int offsetX[4] = {0,1,0,-1};
     int offsetY[4] = {-1,0,1,0};
+    
+    bool eatTimeItem;
+    
+    int tItemY;
+    int tItemX;
+    int delayTime;
+
     // gameboard의 가장자리 2로 수정
     char gameBoard[21][21] = {
                 {'2', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2'},

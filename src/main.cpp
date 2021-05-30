@@ -24,15 +24,19 @@ int main(){
     time_t start = time(NULL);
     time_t scoreStart = time(NULL);
     time_t wallStart = time(NULL);
+    time_t timeItemInitStart = time(NULL);
+    time_t eatTimeStart = time(NULL);
     SnakeGame game(BOARD_ROW, BOARD_COL);
     while(!game.isOver()){
         time_t checkPoint = time(NULL);
         time_t timeScore = time(NULL);
         time_t wallEnd = time(NULL);
+        time_t timeItemInitEnd = time(NULL);
+        time_t eatTimeEnd;
+        
         if((double)(timeScore-scoreStart) >= 1){
             scoreStart = time(NULL);
             game.setTimeScore();
-
         }
         game.processInput();
         if((double)(checkPoint-start) >= 5){
@@ -49,10 +53,20 @@ int main(){
                 game.makeGate();
                 wallStart = time(NULL);
             }
-
-
         }
 
+        if((double)(timeItemInitEnd-timeItemInitStart)>=5){
+            timeItemInitStart = time(NULL);
+            game.clearTimeItem();
+            game.makeTimeItem();
+            time_t eatTimeStart = time(NULL);
+        }
+
+        if((game.getEatTimeItem())&&((double)(eatTimeEnd-eatTimeStart)>=7)){
+            game.setOriginDelayTime();
+            game.setHalfDelay(game.getDelayTime());
+            game.setEatTimeItem(false);
+        }
 
         game.updateState();
         game.redraw();
