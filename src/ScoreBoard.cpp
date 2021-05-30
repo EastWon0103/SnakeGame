@@ -2,7 +2,7 @@
 #include "Snake.h"
 #include <string>
 
-Score::Score(Snake *s) : growthGain(0), poisonGain(0), gateUse(0), second(0)
+Score::Score(Snake *s) : growthGain(0), poisonGain(0), gateUse(0), second(0), totalScore(0)
 {
     snake = s;
     curLength = snake->getLength();
@@ -59,12 +59,16 @@ void ScoreBoard::addAtState()
 {
     // string score_string = stoi(score);
     score->Update();
-    mvwaddstr(score_board, 3, 4, to_string(score->curLength).c_str());
+    string curLengthStr = to_string(score->curLength);
+    if(curLengthStr.size() == 1)
+        curLengthStr += " ";
+    mvwaddstr(score_board, 3, 4, curLengthStr.c_str());
     mvwaddstr(score_board, 3, 9, to_string(score->maxLength).c_str());
     mvwaddstr(score_board, 4, 4, to_string(score->growthGain).c_str());
     mvwaddstr(score_board, 5, 4, to_string(score->poisonGain).c_str());
     mvwaddstr(score_board, 6, 4, to_string(score->gateUse).c_str());
     mvwaddstr(score_board, 7, 4, to_string(score->second).c_str());
+    mvwaddstr(score_board, 8, 4, to_string(score->totalScore).c_str());
 }
 
 void ScoreBoard::refresh()

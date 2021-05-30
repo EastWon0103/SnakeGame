@@ -18,6 +18,7 @@ public:
     int poisonGain;
     int gateUse;
     int second;
+    int totalScore;
     Snake *snake;
 };
 
