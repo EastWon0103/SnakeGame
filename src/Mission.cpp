@@ -10,20 +10,24 @@ Mission::Mission(Score *s)
 
 int Mission::check()
 {
-    if ((score->curLength) >= 10)
+    if ((score->curLength) >= 10 && ((checkFlag & 0b1000) == 0))
     {
+        score->missionComplete++;
         checkFlag |= 0b1000;
     }
-    if ((score->growthGain) >= 5)
+    if ((score->growthGain) >= 5 && ((checkFlag & 0b0100) == 0))
     {
+        score->missionComplete++;
         checkFlag |= 0b0100;
     }
-    if ((score->poisonGain) >= 2)
+    if ((score->poisonGain) >= 2 && ((checkFlag & 0b0010) == 0))
     {
+        score->missionComplete++;
         checkFlag |= 0b0010;
     }
-    if ((score->gateUse) >= 1)
+    if ((score->gateUse) >= 3 && (checkFlag & 0b0001 == 0))
     {
+        score->missionComplete++;
         checkFlag |= 0b0001;
     }
     return checkFlag;
@@ -59,7 +63,7 @@ void MissionBoard::init()
     mvwaddstr(mission_board, 5, 7, "(");
     mvwaddstr(mission_board, 5, 9, ")");
     mvwaddstr(mission_board, 6, 1, "G: ");
-    mvwaddstr(mission_board, 6, 4, "1");
+    mvwaddstr(mission_board, 6, 4, "3");
     mvwaddstr(mission_board, 6, 7, "(");
     mvwaddstr(mission_board, 6, 9, ")");
 }

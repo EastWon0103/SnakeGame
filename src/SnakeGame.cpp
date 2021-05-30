@@ -111,10 +111,10 @@ void SnakeGame::processInput()
 
 void SnakeGame::updateState()
 {
-    score_board.addAtState();
-    score_board.refresh();
     mission_board.addAtState();
     mission_board.refresh();
+    score_board.addAtState();
+    score_board.refresh();
 }
 
 void SnakeGame::redraw()
@@ -543,6 +543,7 @@ void SnakeGame::goDirection()
     // 여기서
     if (checkGate(moveY, moveX))
     {
+        score->gateUse++;
         moveY = gateHeadY(moveY, moveX);
         moveX = gateHeadX(moveY, moveX);
         (*snake)[0].setYposition(moveY);
