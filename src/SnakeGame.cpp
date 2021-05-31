@@ -1,10 +1,5 @@
 #include "SnakeGame.h"
-#include "ScoreBoard.h"
-#include "Board.h"
 #include "Snake.h"
-#include <time.h>
-#include <random>
-#include <unistd.h>
 #include <vector>
 
 #include <iostream>

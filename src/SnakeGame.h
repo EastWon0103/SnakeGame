@@ -5,7 +5,6 @@
 #include "ScoreBoard.h"
 #include "Mission.h"
 #include "Rank.h"
-#include <time.h>
 using namespace std;
 
 enum DIRECTION {

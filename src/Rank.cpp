@@ -3,7 +3,6 @@
 #include <string>
 #include <fstream>
 #include <algorithm>
-#include <iostream>
 using namespace std;
 
 Rank::Rank() : RANK_FILE("RANK.txt")
