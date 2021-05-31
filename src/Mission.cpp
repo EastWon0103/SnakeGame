@@ -1,32 +1,39 @@
 #include "Mission.h"
 #include "ScoreBoard.h"
 #include <string>
-
+using namespace std;
 Mission::Mission(Score *s)
 {
     score = s;
     checkFlag = 0b0000;
+    stage = 0;
 
 }
 
 int Mission::check()
 {   
-    if ((score->curLength) >= 12 && ((checkFlag & 0b1000) == 0))
+    if (checkFlag == 0b1111)
+    {
+        stage++;
+        checkFlag = 0b0000;
+        return 0b1111;
+    }
+    if ((score->curLength) >= (10 + stage*3) && ((checkFlag & 0b1000) == 0))
     {
         score->missionComplete++;
         checkFlag |= 0b1000;
     }
-    if ((score->growthGain) >= 7 && ((checkFlag & 0b0100) == 0))
+    if ((score->growthGain) >= (5 + stage*5) && ((checkFlag & 0b0100) == 0))
     {
         score->missionComplete++;
         checkFlag |= 0b0100;
     }
-    if ((score->poisonGain) >= 2 && ((checkFlag & 0b0010) == 0))
+    if ((score->poisonGain) >= (2 + stage*3) && ((checkFlag & 0b0010) == 0))
     {
         score->missionComplete++;
         checkFlag |= 0b0010;
     }
-    if (((score->gateUse) >= 4) && ((checkFlag & 0b0001) == 0))
+    if (((score->gateUse) >= (3 + stage*2)) && ((checkFlag & 0b0001) == 0))
     {
         score->missionComplete++;
         checkFlag |= 0b0001;
@@ -53,11 +60,11 @@ void MissionBoard::init()
     mvwaddstr(mission_board, 1, 1, "      Mission");
     mvwaddstr(mission_board, 2, 1, "-------------------");
     mvwaddstr(mission_board, 3, 1, "B: ");
-    mvwaddstr(mission_board, 3, 4, "12");
+    mvwaddstr(mission_board, 3, 4, "10");
     mvwaddstr(mission_board, 3, 7, "(");
     mvwaddstr(mission_board, 3, 9, ")");
     mvwaddstr(mission_board, 4, 1, "+: ");
-    mvwaddstr(mission_board, 4, 4, "7");
+    mvwaddstr(mission_board, 4, 4, "5");
     mvwaddstr(mission_board, 4, 7, "(");
     mvwaddstr(mission_board, 4, 9, ")");
     mvwaddstr(mission_board, 5, 1, "-: ");
@@ -65,7 +72,7 @@ void MissionBoard::init()
     mvwaddstr(mission_board, 5, 7, "(");
     mvwaddstr(mission_board, 5, 9, ")");
     mvwaddstr(mission_board, 6, 1, "G: ");
-    mvwaddstr(mission_board, 6, 4, "4");
+    mvwaddstr(mission_board, 6, 4, "3");
     mvwaddstr(mission_board, 6, 7, "(");
     mvwaddstr(mission_board, 6, 9, ")");
 }
@@ -85,13 +92,24 @@ void MissionBoard::addAtState()
 {
     int flag = mission->check();
 
+    if (flag == 0b1111)
+    {
+        mvwaddstr(mission_board, 3, 8, " ");
+        mvwaddstr(mission_board, 4, 8, " ");
+        mvwaddstr(mission_board, 5, 8, " ");
+        mvwaddstr(mission_board, 6, 8, " ");
+        mvwaddstr(mission_board, 3, 4, to_string((10 + mission->stage*3)).c_str());
+        mvwaddstr(mission_board, 4, 4, to_string((5 + mission->stage*5)).c_str());
+        mvwaddstr(mission_board, 5, 4, to_string((2 + mission->stage*3)).c_str());
+        mvwaddstr(mission_board, 6, 4, to_string((3 + mission->stage*2)).c_str());
+        return;
+    }
     int check = 0b1000;
     for (int i = 0; i < 4; i++)
     {
         if ((flag & check) != 0)
         {
             mvwaddstr(mission_board, 3 + i, 8, "v");
-
         }
         check >>= 1;
     }

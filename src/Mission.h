@@ -10,6 +10,7 @@ public:
     Mission(Score *s);
 
     int check();
+    int stage;
 private:
 
     Score *score;
