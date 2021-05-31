@@ -25,7 +25,7 @@ int Mission::check()
         score->missionComplete++;
         checkFlag |= 0b0010;
     }
-    if ((score->gateUse) >= 3 && (checkFlag & 0b0001 == 0))
+    if ((score->gateUse) >= 3 && ((checkFlag & 0b0001) == 0))
     {
         score->missionComplete++;
         checkFlag |= 0b0001;
