@@ -6,6 +6,8 @@
 #include <random>
 #include <unistd.h>
 #include <vector>
+
+#include <iostream>
 SnakeGame::SnakeGame(int height, int width)
 {
     setInnerWall(); //여기 추가했음
@@ -21,8 +23,11 @@ SnakeGame::SnakeGame(int height, int width)
     mission_board = MissionBoard(height, width, mission);
     mission_board.init();
     mission_board.refresh();
-    rank_board = RankBoard(height, width);
+    rank = new Rank();
+    rank->init();
+    rank_board = RankBoard(height, width, rank);
     rank_board.init();
+    rank_board.addAtState(score);
     rank_board.refresh();
     direction = LEFT;
     board.init();
@@ -36,7 +41,8 @@ SnakeGame::SnakeGame(int height, int width)
     delayTime = 5;
     eatStartStatus = false;
     setHalfDelay(delayTime);
-
+    
+    //Debug
 
     //포지션 값 넣어주는 거 추가했음
     for (int y = 0; y < 21; y++)
@@ -58,6 +64,7 @@ SnakeGame::~SnakeGame()
     delete score;
     delete mission;
     delete snake;
+    delete rank;
 }
 
 void SnakeGame::processInput()
@@ -115,6 +122,8 @@ void SnakeGame::updateState()
     mission_board.refresh();
     score_board.addAtState();
     score_board.refresh();
+    rank_board.addAtState(score);
+    rank_board.refresh();
 }
 
 void SnakeGame::redraw()
@@ -700,6 +709,8 @@ void SnakeGame::gameOver()
     board.addAt(10, 24, 'e');
     board.addAt(10, 25, 'r');
     board.addAt(10, 26, '!');
+
+    updateRank();
 }
 
 void SnakeGame::setDirection(DIRECTION d)
@@ -892,4 +903,9 @@ bool SnakeGame::getEatStartStatus(){
 
 void SnakeGame::setEatStartStatus(bool status){
     eatStartStatus = status;
+}
+
+void SnakeGame::updateRank() 
+{
+    rank->update(score);
 }

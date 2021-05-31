@@ -60,8 +60,11 @@ public:
     bool getEatStartStatus();
     void setEatStartStatus(bool status);
 
+    void updateRank();
+
 
 private:
+    Rank *rank;
     Score *score;
     Mission *mission;
     Board board;
