@@ -10,8 +10,8 @@ public:
     Mission(Score *s);
 
     int check();
-
 private:
+
     Score *score;
     int checkFlag;
 };

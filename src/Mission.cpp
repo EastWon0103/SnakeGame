@@ -6,16 +6,17 @@ Mission::Mission(Score *s)
 {
     score = s;
     checkFlag = 0b0000;
+
 }
 
 int Mission::check()
-{
-    if ((score->curLength) >= 10 && ((checkFlag & 0b1000) == 0))
+{   
+    if ((score->curLength) >= 12 && ((checkFlag & 0b1000) == 0))
     {
         score->missionComplete++;
         checkFlag |= 0b1000;
     }
-    if ((score->growthGain) >= 5 && ((checkFlag & 0b0100) == 0))
+    if ((score->growthGain) >= 7 && ((checkFlag & 0b0100) == 0))
     {
         score->missionComplete++;
         checkFlag |= 0b0100;
@@ -25,11 +26,12 @@ int Mission::check()
         score->missionComplete++;
         checkFlag |= 0b0010;
     }
-    if ((score->gateUse) >= 3 && ((checkFlag & 0b0001) == 0))
+    if (((score->gateUse) >= 4) && ((checkFlag & 0b0001) == 0))
     {
         score->missionComplete++;
         checkFlag |= 0b0001;
     }
+
     return checkFlag;
 }
 
@@ -51,11 +53,11 @@ void MissionBoard::init()
     mvwaddstr(mission_board, 1, 1, "      Mission");
     mvwaddstr(mission_board, 2, 1, "-------------------");
     mvwaddstr(mission_board, 3, 1, "B: ");
-    mvwaddstr(mission_board, 3, 4, "10");
+    mvwaddstr(mission_board, 3, 4, "12");
     mvwaddstr(mission_board, 3, 7, "(");
     mvwaddstr(mission_board, 3, 9, ")");
     mvwaddstr(mission_board, 4, 1, "+: ");
-    mvwaddstr(mission_board, 4, 4, "5");
+    mvwaddstr(mission_board, 4, 4, "7");
     mvwaddstr(mission_board, 4, 7, "(");
     mvwaddstr(mission_board, 4, 9, ")");
     mvwaddstr(mission_board, 5, 1, "-: ");
@@ -63,7 +65,7 @@ void MissionBoard::init()
     mvwaddstr(mission_board, 5, 7, "(");
     mvwaddstr(mission_board, 5, 9, ")");
     mvwaddstr(mission_board, 6, 1, "G: ");
-    mvwaddstr(mission_board, 6, 4, "3");
+    mvwaddstr(mission_board, 6, 4, "4");
     mvwaddstr(mission_board, 6, 7, "(");
     mvwaddstr(mission_board, 6, 9, ")");
 }
@@ -82,12 +84,14 @@ void MissionBoard::clear()
 void MissionBoard::addAtState()
 {
     int flag = mission->check();
+
     int check = 0b1000;
     for (int i = 0; i < 4; i++)
     {
         if ((flag & check) != 0)
         {
             mvwaddstr(mission_board, 3 + i, 8, "v");
+
         }
         check >>= 1;
     }

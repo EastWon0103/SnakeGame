@@ -13,7 +13,7 @@ Rank::Rank() : RANK_FILE("RANK.txt")
 void Rank::init() 
 {
     ifstream fin;
-    fin.open("RANK.txt", ifstream::in);
+    fin.open(RANK_FILE, ifstream::in);
     while(!fin.eof())
     {
         if(rankArray.size() == 100) break;
@@ -22,6 +22,7 @@ void Rank::init()
         fin >> tmp;
         rankArray.push_back(tmp);
     }
+    rankArray.pop_back();
     if(rankArray.empty())
     {
         rankArray.push_back(0);
@@ -33,7 +34,7 @@ void Rank::init()
 void Rank::update(Score* score) 
 {
     ofstream fout;
-    fout.open("RANK.txt", std::ofstream::out | std::ofstream::trunc);
+    fout.open(RANK_FILE, std::ofstream::out | std::ofstream::trunc);
     rankArray.push_back(score->totalScore);
     sort(rankArray.begin(), rankArray.end(), greater<>());
     if (rankArray.size() > 100)
