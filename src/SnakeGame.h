@@ -6,7 +6,14 @@
 #include "Mission.h"
 #include "Rank.h"
 using namespace std;
+/*  
+    각 헤데파일에 명시한 함수의 저자는 구현부인 cpp파일에다 적음
+    기여도 %가 절대적으로 정확한 지표는 아닌 것을 명시함
 
+    @author 김동원(20181580) 40%
+    @author 김호준(20181604) 20%
+    @author 김호준(20181605) 40%
+*/
 enum DIRECTION {
     UP, DOWN, RIGHT, LEFT
 };
@@ -75,7 +82,7 @@ private:
     Snake *snake;
     int gItemNum;
     int pItemNum;
-    //여기도 추가했음
+
     vector<int> wallYPosition;
     vector<int> wallXPosition;
     int gate1Y = -1;
@@ -93,7 +100,6 @@ private:
 
     bool eatStartStatus;
 
-    // gameboard의 가장자리 2로 수정
     char gameBoard[21][21] = {
                 {'2', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2'},
                 {'1', '0', '0', 'g', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},
