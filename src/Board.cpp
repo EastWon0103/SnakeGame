@@ -10,14 +10,14 @@ Board::Board(int height, int width)
     init();
 }
 
-// @author 김호준(20181604)
+// @author 김동원(20181580)
 void Board::init()
 {
     clear();
     refresh();
 }
 
-// @author 김호준(20181604)
+// @author 김동원(20181580)
 void Board::addBoarder()
 {
     box(board_win, 0, 0);

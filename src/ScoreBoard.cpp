@@ -2,6 +2,7 @@
 #include "Snake.h"
 #include <string>
 
+// @author 김호준(20181604)
 Score::Score(Snake *s) : growthGain(0), poisonGain(0), gateUse(0), second(0), totalScore(0), 
                          missionComplete(0)
 {
@@ -10,6 +11,7 @@ Score::Score(Snake *s) : growthGain(0), poisonGain(0), gateUse(0), second(0), to
     maxLength = snake->getLength();
 }
 
+// @author 김호준(20181604)
 void Score::Update()
 {
     curLength = snake->getLength();
@@ -20,6 +22,7 @@ void Score::Update()
     totalScore = second * 12 + growthGain * 100 - poisonGain * 100 + gateUse * 300 + missionComplete * 300;
 }
 
+// @author 김호준(20181604)
 ScoreBoard::ScoreBoard(int height, int width, Score *s)
 {
     int xMax, yMax;
@@ -31,6 +34,7 @@ ScoreBoard::ScoreBoard(int height, int width, Score *s)
     init();
 }
 
+// @author 김호준(20181604)
 void ScoreBoard::init()
 {
     clear();
@@ -46,17 +50,20 @@ void ScoreBoard::init()
     mvwaddstr(score_board, 8, 1, "TOTAL: ");
 }
 
+// @author 김호준(20181605)
 void ScoreBoard::addBoarder()
 {
     box(score_board, 0, 0);
 }
 
+// @author 김호준(20181605)
 void ScoreBoard::clear()
 {
     wclear(score_board);
     addBoarder();
 }
 
+// @author 김호준(20181605)
 void ScoreBoard::addAtState()
 {
     // string score_string = stoi(score);
@@ -73,6 +80,7 @@ void ScoreBoard::addAtState()
     mvwaddstr(score_board, 8, 8, to_string(score->totalScore).c_str());
 }
 
+// @author 김호준(20181605)
 void ScoreBoard::refresh()
 {
     wrefresh(score_board);

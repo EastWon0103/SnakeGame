@@ -2,6 +2,8 @@
 #include "ScoreBoard.h"
 #include <string>
 using namespace std;
+
+// @author 김호준(20181604)
 Mission::Mission(Score *s)
 {
     score = s;
@@ -10,6 +12,7 @@ Mission::Mission(Score *s)
 
 }
 
+// @author 김호준(20181604)
 int Mission::check()
 {   
     if (checkFlag == 0b1111 && stage < 4)
@@ -42,6 +45,7 @@ int Mission::check()
     return checkFlag;
 }
 
+// @author 김동원(20181580)
 MissionBoard::MissionBoard(int height, int width, Mission *m)
 {
     int xMax, yMax;
@@ -53,6 +57,7 @@ MissionBoard::MissionBoard(int height, int width, Mission *m)
     init();
 }
 
+// @author 김호준(20181605)
 void MissionBoard::init()
 {
     clear();
@@ -77,17 +82,20 @@ void MissionBoard::init()
     mvwaddstr(mission_board, 6, 9, ")");
 }
 
+// @author 김호준(20181605)
 void MissionBoard::addBoarder()
 {
     box(mission_board, 0, 0);
 }
 
+// @author 김호준(20181605)
 void MissionBoard::clear()
 {
     wclear(mission_board);
     addBoarder();
 }
 
+// @author 김호준(20181604)
 bool MissionBoard::addAtState()
 {
     int flag = mission->check();
@@ -116,6 +124,7 @@ bool MissionBoard::addAtState()
     return false;
 }
 
+// @author 김동원(20181580)
 void MissionBoard::refresh()
 {
     wrefresh(mission_board);

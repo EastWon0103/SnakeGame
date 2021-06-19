@@ -5,10 +5,12 @@
 #include <algorithm>
 using namespace std;
 
+// @author 김호준(20181604)
 Rank::Rank() : RANK_FILE("RANK.txt")
 {
 }
 
+// @author 김호준(20181604)
 void Rank::init() 
 {
     ifstream fin;
@@ -30,6 +32,7 @@ void Rank::init()
     fin.close();
 }
 
+// @author 김호준(20181604)
 void Rank::update(Score* score) 
 {
     ofstream fout;
@@ -48,6 +51,7 @@ void Rank::update(Score* score)
 
 }
 
+// @author 김호준(20181605)
 RankBoard::RankBoard(int height, int width, Rank* r) : rank(r)
 {
     int xMax, yMax;
@@ -58,6 +62,7 @@ RankBoard::RankBoard(int height, int width, Rank* r) : rank(r)
     init();
 }
 
+// @author 김호준(20181605)
 void RankBoard::init()
 {
     clear();
@@ -65,17 +70,20 @@ void RankBoard::init()
     mvwaddstr(rank_board, 1, 1, "Best Score: ");
 }
 
+// @author 김호준(20181605)
 void RankBoard::addBoarder()
 {
     box(rank_board, 0, 0);
 }
 
+// @author 김호준(20181605)
 void RankBoard::clear()
 {
     wclear(rank_board);
     addBoarder();
 }
 
+// @author 김호준(20181604)
 void RankBoard::addAtState(const Score* score)
 {
     if(score->totalScore < rank->bestScore)
@@ -84,6 +92,7 @@ void RankBoard::addAtState(const Score* score)
         mvwaddstr(rank_board, 1, 13, to_string(score->totalScore).c_str());
 }
 
+// @author 김호준(20181605)
 void RankBoard::refresh()
 {
     wrefresh(rank_board);
