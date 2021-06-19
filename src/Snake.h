@@ -2,6 +2,16 @@
 #define __SNAKE_BODY__
 #include <vector>
 
+
+/*  
+    각 헤데파일에 명시한 함수의 저자는 구현부인 cpp파일에다 적음
+    기여도 %가 절대적으로 정확한 지표는 아닌 것을 명시함
+
+    @author 김동원(20181580) 50%
+    @author 김호준(20181604) 10%
+    @author 김호준(20181605) 40%
+*/
+
 using namespace std;
 enum PART
 {
@@ -9,6 +19,7 @@ enum PART
     TAIL
 };
 
+// @author 김동원(20181580)
 class SnakeBody
 {
 public:
@@ -40,7 +51,7 @@ protected:
     PART part;
 };
 
-// 몸통 추가, 삭제 구현해야됨
+
 class Snake
 {
 public:

@@ -6,15 +6,13 @@
 #define BOARD_DIM 21
 #define BOARD_ROW BOARD_DIM
 #define BOARD_COL BOARD_ROW * 2
+/*
+    같이 고민하고 제작한 소스코드의 경우는 %로 임의로 표기
 
-
-// board.h의 width에 -1 하나 빼주었다.
-// setinnergamewall 추가
-// board 그려주는거 잠시 수정
-// gameboard의 가장자리 1->2로 수정
-// gate추가 
-// gate 테스트중임
-// 게이트 랜덤하게 생성++ 지나고 있으면 생성되지 않음,
+    @author 김동원(20181580) 35%
+    @author 김호준(20181604) 30%
+    @author 김호준(20181605) 35%
+*/
 int main(){
     initscr();
     refresh();

@@ -1,6 +1,13 @@
 #include "Snake.h"
 
+/*  
+    @author 김동원(20181580) 50%
+    @author 김호준(20181604) 10%
+    @author 김호준(20181605) 40%
+*/
 using namespace std;
+
+// @author 김동원(20181580)
 SnakeBody::SnakeBody(int y, int x, PART p)
 {
     yPosition = y;
@@ -8,6 +15,7 @@ SnakeBody::SnakeBody(int y, int x, PART p)
     part = p;
 }
 
+// @author 김호준(20181604)
 Snake::Snake(int size, int startY, int startX): length(size)
 {
     gainPlus = 0;
@@ -27,6 +35,7 @@ Snake::Snake(int size, int startY, int startX): length(size)
     }
 }
 
+// @author 김호준(20181605)
 void Snake::plusBody()
 {
     int y = body[getLength() - 1].getYposition();
@@ -37,6 +46,7 @@ void Snake::plusBody()
     length++;
 }
 
+// @author 김호준(20181605)
 void Snake::minusBody()
 {
     gainMinus++;
@@ -44,6 +54,7 @@ void Snake::minusBody()
     body.pop_back();
 }
 
+// @author 김동원(20181580)
 SnakeBody &Snake::operator[](int idx)
 {
     return body[idx];

@@ -1,10 +1,17 @@
 #include "SnakeGame.h"
 #include "Snake.h"
 #include <vector>
+#include <iostream>
+
+/*
+    @author 김동원(20181580) 40%
+    @author 김호준(20181604) 20%
+    @author 김호준(20181605) 40%
+*/
 
 SnakeGame::SnakeGame(int height, int width)
 {
-    setInnerWall(); //여기 추가했음
+    setInnerWall();
     snake = new Snake(3, height / 2, width / 4 - 3);
     snakeOnBoard(snake);
     board = Board(height, width);
@@ -53,7 +60,9 @@ SnakeGame::SnakeGame(int height, int width)
     }
 
 }
-
+/*
+    @author 김호준(20181604)
+*/
 SnakeGame::~SnakeGame()
 {
     delete score;
@@ -62,6 +71,9 @@ SnakeGame::~SnakeGame()
     delete rank;
 }
 
+/*
+    @author 김동원(20181580)
+*/
 void SnakeGame::processInput()
 {
     int input = board.getInput();
@@ -111,6 +123,9 @@ void SnakeGame::processInput()
     readBoard();
 }
 
+/*
+    @author 김호준(20181604)
+*/
 void SnakeGame::updateState()
 {
     score_board.addAtState();
@@ -119,11 +134,17 @@ void SnakeGame::updateState()
     rank_board.refresh();
 }
 
+/*
+    @author 김호준(20181604)
+*/
 void SnakeGame::redraw()
 {
     board.refresh();
 }
 
+/*
+    @author 김동원(20181580)
+*/
 bool SnakeGame::checkWB(int y, int x)
 {
     char referPoint = gameBoard[y][x];
@@ -161,6 +182,9 @@ bool SnakeGame::checkWB(int y, int x)
     }
 }
 
+/*
+    @author 김동원(20181580)
+*/
 void SnakeGame::checkLength()
 {
     int l = snake->getLength();
@@ -170,6 +194,9 @@ void SnakeGame::checkLength()
     }
 }
 
+/*
+    @author 김호준(20181605)
+*/
 bool SnakeGame::checkGate(int y, int x)
 {
     char referPoint = gameBoard[y][x];
@@ -183,18 +210,10 @@ bool SnakeGame::checkGate(int y, int x)
     }
 }
 
+/*
+    @author 김호준(20181605)
+*/
 bool SnakeGame::isGate(){
-
-    //body의 포지션과 gate의 포지션으로 비교하려고 했으나, body의 좌표는 한번 생성 후에 움직일때마다 초기화 되지 않음,-> 이게 정확한 방법인데 효율성이 떨어짐.
-//    for(int i=0; i<snake->getLength()-1; i++){
-//        if(gate1Y == (*snake)[i].getYposition() && gate1X == (*snake)[i].getXposition()){
-//            return true;
-//        }else if(gate2Y == (*snake)[i].getYposition() && gate2X == (*snake)[i].getXposition()){
-//            return true;
-//        }
-//    }
-
-    //범위 오류가 나야하는데 왜 안나지..? 한가지 버그가 있는데 들어가는게 아니라 거기 주변을 지나가고 있어도 생성되지 않을거임.
     for(int i=0; i<4; i++){
 
         if( (gameBoard[gate1Y+offsetY[i]][gate1X+offsetX[i]] == '3' ||gameBoard[gate1Y+offsetY[i]][gate1X+offsetX[i]] == '4') ){
@@ -205,15 +224,13 @@ bool SnakeGame::isGate(){
         }
     }
 
-    //(gate1Y+offsetY[i] >= 0 && gate1X+offsetX[i] >= 20) &&
-    //(gate2Y+offsetY[i] >= 0 && gate2X+offsetX[i] >= 20) &&
-
-
     return false;
 
 }
 
-
+/*
+    @author 김호준(20181605)
+*/
 int SnakeGame::gateHeadY(int referY, int referX)
 {
     int moveY, moveX;
@@ -362,6 +379,9 @@ int SnakeGame::gateHeadY(int referY, int referX)
     return moveY;
 }
 
+/*
+    @author 김호준(20181605)
+*/
 int SnakeGame::gateHeadX(int referY, int referX)
 {
     int moveY, moveX;
@@ -510,6 +530,9 @@ int SnakeGame::gateHeadX(int referY, int referX)
     return moveX;
 }
 
+/*
+    @author 김동원(20181580)
+*/
 void SnakeGame::goDirection()
 {
     int preY = (*snake)[0].getYposition();
@@ -542,7 +565,6 @@ void SnakeGame::goDirection()
         return;
     }
     checkLength();
-    // 여기서
     if (checkGate(moveY, moveX))
     {
         score->gateUse++;
@@ -556,7 +578,6 @@ void SnakeGame::goDirection()
         (*snake)[0].setYposition(moveY);
         (*snake)[0].setXposition(moveX);
     }
-    //여기까지 수정했음
     for (int i = 1; i < snake->getLength(); i++)
     {
         int tmpY = (*snake)[i].getYposition();
@@ -570,6 +591,9 @@ void SnakeGame::goDirection()
     snakeOnBoard(snake);
 }
 
+/*
+    @author 김호준(20181604)
+*/
 void SnakeGame::readBoard()
 {
     for (int i = 0; i < 21; i++)
@@ -594,14 +618,14 @@ void SnakeGame::readBoard()
                 board.addAt(i, j * 2, '-');
             }
             else if (point == '1')
-            { //임시로 innerWall 출력하게 만들었음
+            { 
                 if (((i != 0) && (i != 20)) && ((j != 0) && (j != 20)))
                 {
                     board.addAt(i, j * 2, 'M');
                 }
             }
             else if (point == '9')
-            { //임시로 게이트 출력하게 만듬
+            { 
                 board.addAt(i, j * 2, '9');
             }
             else if (point == 'T')
@@ -612,6 +636,9 @@ void SnakeGame::readBoard()
     }
 }
 
+/*
+    @author 김호준(20181605)
+*/
 void SnakeGame::makeGItem()
 {
     if (gItemNum < 3)
@@ -636,6 +663,10 @@ void SnakeGame::makeGItem()
     }
 }
 
+
+/*
+    @author 김호준(20181605)
+*/
 void SnakeGame::makePItem()
 {
     if (pItemNum < 3)
@@ -660,6 +691,10 @@ void SnakeGame::makePItem()
     }
 }
 
+
+/*
+    @author 김동원(20181580)
+*/
 void SnakeGame::snakeOnBoard(Snake *s)
 {
     for (int i = 0; i < s->getLength(); i++)
@@ -678,11 +713,17 @@ void SnakeGame::snakeOnBoard(Snake *s)
     }
 }
 
+/*
+    @author 김동원(20181580)
+*/
 bool SnakeGame::isOver()
 {
     return game_over;
 }
 
+/*
+    @author 김호준(20181604)
+*/
 void SnakeGame::gameOver()
 {
     for (int i = 0; i < 21; i++)
@@ -706,20 +747,32 @@ void SnakeGame::gameOver()
     updateRank();
 }
 
+/*
+    @author 김동원(20181580)
+*/
 void SnakeGame::setDirection(DIRECTION d)
 {
     direction = d;
 }
 
+/*
+    @author 김호준(20181605)
+*/
 void SnakeGame::setTimeScore()
 {
     score->second++;
 }
 
+/*
+    @author 김호준(20181605)
+*/
 int SnakeGame::getTimeScore() {{
         return score->second;
 }}
 
+/*
+    @author 김호준(20181605)
+*/
 void SnakeGame::setInnerWall()
 {
     srand(time(NULL));
@@ -759,6 +812,10 @@ void SnakeGame::setInnerWall()
     }
 }
 
+
+/*
+    @author 김호준(20181605)
+*/
 bool SnakeGame::makeGateCheck(int num)
 {
     int gateY = wallYPosition[num];
@@ -804,10 +861,13 @@ bool SnakeGame::makeGateCheck(int num)
     return false;
 }
 
+
+/*
+    @author 김호준(20181605)
+*/
 void SnakeGame::makeGate()
 {
     // 상하가 비어있거나, 좌우가 비어있거나 모두 비어있거나, 사이드의 벽이거나
-    //일단 9를 게이트로 해주었음
     int peek1, peek2;
     while (true)
     {
@@ -833,6 +893,9 @@ void SnakeGame::makeGate()
     gameBoard[gate2Y][gate2X] = '9';
 }
 
+/*
+    @author 김호준(20181605)
+*/
 void SnakeGame::clearGate(){
 
     if(gate1Y == -1){
@@ -843,20 +906,32 @@ void SnakeGame::clearGate(){
 
 }
 
+/*
+    @author 김동원(20181580)
+*/
 bool SnakeGame::getEatTimeItem(){
     return eatTimeItem;
 }
 
+/*
+    @author 김동원(20181580)
+*/
 void SnakeGame::setEatTimeItem(bool status){
     eatTimeItem = status;
 }
 
+/*
+    @author 김동원(20181580)
+*/
 void SnakeGame::clearTimeItem(){
     if((tItemY!=-1)&&(tItemX!=-1)){
         gameBoard[tItemY][tItemX] = '0';
     }  
 }
 
+/*
+    @author 김동원(20181580)
+*/
 void SnakeGame::makeTimeItem(){
     int y = rand()%18+1;
     int x = rand()%18+1;
@@ -874,30 +949,53 @@ void SnakeGame::makeTimeItem(){
     }
 }
 
+/*
+    @author 김동원(20181580)
+*/
 int SnakeGame::getDelayTime(){
     return delayTime;
 }
+
+/*
+    @author 김동원(20181580)
+*/
 void SnakeGame::minusDelayTime(){
     if(!(delayTime-1 == 0)){
         delayTime -= 2;
     }
 }
+
+/*
+    @author 김동원(20181580)
+*/
 void SnakeGame::setOriginDelayTime(){
     delayTime = 5;
 }
 
+/*
+    @author 김동원(20181580)
+*/
 void SnakeGame::setHalfDelay(int time){
     halfdelay(time);
 }
 
+/*
+    @author 김동원(20181580)
+*/
 bool SnakeGame::getEatStartStatus(){
     return eatStartStatus;
 }
 
+/*
+    @author 김동원(20181580)
+*/
 void SnakeGame::setEatStartStatus(bool status){
     eatStartStatus = status;
 }
 
+/*
+    @author 김호준(20181604)
+*/
 void SnakeGame::updateRank() 
 {
     rank->update(score);
