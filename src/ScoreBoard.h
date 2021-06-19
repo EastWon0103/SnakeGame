@@ -35,7 +35,7 @@ public:
     void addAtState();
     void refresh();
 
-private: 
+private:
     WINDOW *score_board;
     Score *score;
 };

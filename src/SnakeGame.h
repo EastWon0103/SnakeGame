@@ -60,7 +60,12 @@ public:
     void setEatStartStatus(bool status);
 
     void updateRank();
+    
+    
+    void missionUpdate();
+    bool isMissionComplete;
 
+    int getStage();
 
 private:
     Rank *rank;

@@ -88,7 +88,7 @@ void MissionBoard::clear()
     addBoarder();
 }
 
-void MissionBoard::addAtState()
+bool MissionBoard::addAtState()
 {
     int flag = mission->check();
 
@@ -102,7 +102,7 @@ void MissionBoard::addAtState()
         mvwaddstr(mission_board, 4, 4, to_string((5 + mission->stage*5)).c_str());
         mvwaddstr(mission_board, 5, 4, to_string((2 + mission->stage*3)).c_str());
         mvwaddstr(mission_board, 6, 4, to_string((3 + mission->stage*2)).c_str());
-        return;
+        return true;
     }
     int check = 0b1000;
     for (int i = 0; i < 4; i++)
@@ -113,6 +113,7 @@ void MissionBoard::addAtState()
         }
         check >>= 1;
     }
+    return false;
 }
 
 void MissionBoard::refresh()

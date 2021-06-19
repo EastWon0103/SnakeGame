@@ -26,7 +26,7 @@ public:
     void init();
     void addBoarder();
     void clear();
-    void addAtState();
+    bool addAtState();
     void refresh();
 
 private:
