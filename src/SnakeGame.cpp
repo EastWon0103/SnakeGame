@@ -12,7 +12,6 @@
 SnakeGame::SnakeGame(int height, int width)
 {
     // setInnerWall();
-    gameStage=1;
     snake = new Snake(3, height / 2, width / 4 - 3);
     snakeOnBoard(snake);
     board = Board(height, width);
@@ -815,6 +814,24 @@ int SnakeGame::getTimeScore() {{
 // }
 
 
+
+void SnakeGame::resetWallPosition()
+{
+    wallYPosition.clear();
+    wallXPosition.clear();
+    for (int y = 0; y < 21; y++)
+    {
+        for (int x = 0; x < 21; x++)
+        {
+            if (gameBoard[y][x] == '1')
+            {
+                wallYPosition.push_back(y);
+                wallXPosition.push_back(x);
+            }
+        }
+    }
+}
+
 /*
     @author 김호준(20181605)
 */
@@ -868,7 +885,8 @@ bool SnakeGame::makeGateCheck(int num)
     @author 김호준(20181605)
 */
 void SnakeGame::makeGate()
-{
+{   
+    resetWallPosition();
     // 상하가 비어있거나, 좌우가 비어있거나 모두 비어있거나, 사이드의 벽이거나
     int peek1, peek2;
     while (true)
@@ -1016,8 +1034,100 @@ int SnakeGame::getStage()
     return mission->stage;
 
 }
-void changeMap()
-{
-    // if(gameStage)
 
+void SnakeGame::setOriginalMap()
+{
+    pItemNum = 0;
+    gItemNum = 0;
+    for(int y=1;y<20;y++){
+        for(int x=1;x<20;x++){
+            gameBoard[y][x] = '0';
+        }
+    }
+}
+
+bool SnakeGame::canMakeInner()
+{
+    bool can = true;
+    //여기
+    // int gameStage = get();
+    int gameStage = getStage()+1; //여기도 잘고치면 주석 풀어줘야함
+    switch(gameStage){
+        case 1:
+            break;
+        case 2:
+            for(int i=0;i<snake->getLength();i++){
+                int y = (*snake)[i].getYposition();
+                int x = (*snake)[i].getXposition();
+                for(int j=0;j<14;j++){
+                    if((stage2InnerY[j]==y)&&(stage2InnerX[j]==x)){
+                        can = false;
+                        break;
+                    }
+                }
+            }
+            break;
+        case 3:
+            for(int i=0;i<snake->getLength();i++){
+                int y = (*snake)[i].getYposition();
+                int x = (*snake)[i].getXposition();
+                for(int j=0;j<19;j++){
+                    if((stage3InnerY[j]==y)&&(stage3InnerX[j]==x)){
+                        can = false;
+                        break;
+                    }
+                }
+            }
+            break;
+        case 4:
+            for(int i=0;i<snake->getLength();i++){
+                int y = (*snake)[i].getYposition();
+                int x = (*snake)[i].getXposition();
+                for(int j=0;j<33;j++){
+                    if((stage4InnerY[j]==y)&&(stage4InnerX[j]==x)){
+                        can = false;
+                        break;
+                    }
+                }
+            }
+            break;
+        default:
+            break;
+    }
+    return can;
+}
+
+void SnakeGame::changeMap()
+{   
+
+    //여기 
+    // int gameStage = get();
+    int gameStage =getStage()+1;//잘고치면 여기 주석 풀기
+    switch(gameStage){
+        case 1:
+            break;
+        case 2:
+            setOriginalMap();
+            for(int i=0;i<14;i++){
+                gameBoard[stage2InnerY[i]][stage2InnerX[i]] = '1';
+            }
+            snakeOnBoard(snake);
+            break;
+        case 3:
+            setOriginalMap();
+            for(int i=0;i<19;i++){
+                gameBoard[stage3InnerY[i]][stage3InnerX[i]] = '1';
+            }
+            snakeOnBoard(snake);
+            break;
+        case 4:
+            setOriginalMap();
+            for(int i=0;i<33;i++){
+                gameBoard[stage4InnerY[i]][stage4InnerX[i]] = '1';
+            }
+            snakeOnBoard(snake);
+            break;
+        default:
+            break;
+    }
 }
