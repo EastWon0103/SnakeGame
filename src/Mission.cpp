@@ -12,7 +12,7 @@ Mission::Mission(Score *s)
 
 int Mission::check()
 {   
-    if (checkFlag == 0b1111)
+    if (checkFlag == 0b1111 && stage < 4)
     {
         stage++;
         checkFlag = 0b0000;
