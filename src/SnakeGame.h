@@ -45,7 +45,7 @@ public:
     void setDirection(DIRECTION d);
     void setTimeScore();
     int getTimeScore();
-    void setInnerWall();
+    // void setInnerWall();
     bool makeGateCheck(int num);
     void makeGate();
     void clearGate();
@@ -100,6 +100,7 @@ private:
 
     bool eatStartStatus;
 
+    int gameStage;
     char gameBoard[21][21] = {
                 {'2', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2'},
                 {'1', '0', '0', 'g', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},

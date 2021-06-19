@@ -11,7 +11,8 @@
 
 SnakeGame::SnakeGame(int height, int width)
 {
-    setInnerWall();
+    // setInnerWall();
+    gameStage=1;
     snake = new Snake(3, height / 2, width / 4 - 3);
     snakeOnBoard(snake);
     board = Board(height, width);
@@ -769,46 +770,47 @@ int SnakeGame::getTimeScore() {{
 }}
 
 /*
+    현재 이 함수는 쓰이지 않음
     @author 김호준(20181605)
 */
-void SnakeGame::setInnerWall()
-{
-    srand(time(NULL));
-    int pick = rand() % 3 + 1;
-    if (pick == 1)
-    {
-    }
-    else if (pick == 2)
-    {
-        for (int x = 8; x < 15; x++)
-        {
-            gameBoard[11][x] = '1';
-        }
-        for (int y = 11; y > 4; y--)
-        {
-            gameBoard[y][15] = '1';
-        }
-    }
-    else
-    {
-        for (int x = 5; x < 10; x++)
-        {
-            gameBoard[4][x] = '1';
-        }
-        for (int y = 5; y < 10; y++)
-        {
-            gameBoard[y][5] = '1';
-        }
-        for (int y = 11; y < 16; y++)
-        {
-            gameBoard[y][12] = '1';
-        }
-        for (int x = 12; x < 16; x++)
-        {
-            gameBoard[13][x] = '1';
-        }
-    }
-}
+// void SnakeGame::setInnerWall()
+// {
+//     srand(time(NULL));
+//     int pick = rand() % 3 + 1;
+//     if (pick == 1)
+//     {
+//     }
+//     else if (pick == 2)
+//     {
+//         for (int x = 8; x < 15; x++)
+//         {
+//             gameBoard[11][x] = '1';
+//         }
+//         for (int y = 11; y > 4; y--)
+//         {
+//             gameBoard[y][15] = '1';
+//         }
+//     }
+//     else
+//     {
+//         for (int x = 5; x < 10; x++)
+//         {
+//             gameBoard[4][x] = '1';
+//         }
+//         for (int y = 5; y < 10; y++)
+//         {
+//             gameBoard[y][5] = '1';
+//         }
+//         for (int y = 11; y < 16; y++)
+//         {
+//             gameBoard[y][12] = '1';
+//         }
+//         for (int x = 12; x < 16; x++)
+//         {
+//             gameBoard[13][x] = '1';
+//         }
+//     }
+// }
 
 
 /*
@@ -997,4 +999,10 @@ void SnakeGame::setEatStartStatus(bool status){
 void SnakeGame::updateRank() 
 {
     rank->update(score);
+}
+
+void changeMap()
+{
+    // if(gameStage)
+
 }

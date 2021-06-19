@@ -32,6 +32,13 @@ int main(){
         time_t timeItemInitEnd = time(NULL);
         time_t eatTimeEnd = time(NULL);
 
+        /*
+        if(미션을 컴플리트)&&(게임스테이지<4){
+            미션 컴플리트 = false
+            미션 업데이트()
+            스테이지 변경
+        }
+        */
         if((double)(timeScore-scoreStart) >= 1){
             scoreStart = time(NULL);
             game.setTimeScore();
