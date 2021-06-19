@@ -1021,6 +1021,7 @@ void SnakeGame::updateRank()
     rank->update(score);
 }
 
+//    @author 김호준(20181604)
 void SnakeGame::missionUpdate() 
 {
     bool tmp = mission_board.addAtState();
@@ -1029,6 +1030,7 @@ void SnakeGame::missionUpdate()
         isMissionComplete = true;
 }
 
+//    @author 김호준(20181604)
 int SnakeGame::getStage() 
 {
     return mission->stage;
