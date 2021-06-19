@@ -11,7 +11,6 @@
 
 SnakeGame::SnakeGame(int height, int width)
 {
-    // setInnerWall();
     snake = new Snake(3, height / 2, width / 4 - 3);
     snakeOnBoard(snake);
     board = Board(height, width);
@@ -43,10 +42,6 @@ SnakeGame::SnakeGame(int height, int width)
     eatStartStatus = false;
     setHalfDelay(delayTime);
     bool isMissionComplete = false;
-
-    //Debug
-
-    //포지션 값 넣어주는 거 추가했음
     for (int y = 0; y < 21; y++)
     {
         for (int x = 0; x < 21; x++)
@@ -770,50 +765,6 @@ int SnakeGame::getTimeScore() {{
         return score->second;
 }}
 
-/*
-    현재 이 함수는 쓰이지 않음
-    @author 김호준(20181605)
-*/
-// void SnakeGame::setInnerWall()
-// {
-//     srand(time(NULL));
-//     int pick = rand() % 3 + 1;
-//     if (pick == 1)
-//     {
-//     }
-//     else if (pick == 2)
-//     {
-//         for (int x = 8; x < 15; x++)
-//         {
-//             gameBoard[11][x] = '1';
-//         }
-//         for (int y = 11; y > 4; y--)
-//         {
-//             gameBoard[y][15] = '1';
-//         }
-//     }
-//     else
-//     {
-//         for (int x = 5; x < 10; x++)
-//         {
-//             gameBoard[4][x] = '1';
-//         }
-//         for (int y = 5; y < 10; y++)
-//         {
-//             gameBoard[y][5] = '1';
-//         }
-//         for (int y = 11; y < 16; y++)
-//         {
-//             gameBoard[y][12] = '1';
-//         }
-//         for (int x = 12; x < 16; x++)
-//         {
-//             gameBoard[13][x] = '1';
-//         }
-//     }
-// }
-
-
 
 void SnakeGame::resetWallPosition()
 {
@@ -1021,7 +972,9 @@ void SnakeGame::updateRank()
     rank->update(score);
 }
 
-//    @author 김호준(20181604)
+/*
+    @author 김호준(20181604)
+*/
 void SnakeGame::missionUpdate() 
 {
     bool tmp = mission_board.addAtState();
@@ -1030,13 +983,18 @@ void SnakeGame::missionUpdate()
         isMissionComplete = true;
 }
 
-//    @author 김호준(20181604)
+/*
+    @author 김호준(20181604)
+*/
 int SnakeGame::getStage() 
 {
     return mission->stage;
 
 }
 
+/*
+    @author 김동원(20181580)
+*/
 void SnakeGame::setOriginalMap()
 {
     pItemNum = 0;
@@ -1048,11 +1006,12 @@ void SnakeGame::setOriginalMap()
     }
 }
 
+/*
+    @author 김동원(20181580)
+*/
 bool SnakeGame::canMakeInner()
 {
     bool can = true;
-    //여기
-    // int gameStage = get();
     int gameStage = getStage()+1; //여기도 잘고치면 주석 풀어줘야함
     switch(gameStage){
         case 1:
@@ -1099,12 +1058,12 @@ bool SnakeGame::canMakeInner()
     return can;
 }
 
+/*
+    @author 김동원(20181580)
+*/
 void SnakeGame::changeMap()
 {   
-
-    //여기 
-    // int gameStage = get();
-    int gameStage =getStage()+1;//잘고치면 여기 주석 풀기
+    int gameStage =getStage()+1;
     switch(gameStage){
         case 1:
             break;

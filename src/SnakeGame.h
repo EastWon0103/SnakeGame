@@ -45,7 +45,6 @@ public:
     void setDirection(DIRECTION d);
     void setTimeScore();
     int getTimeScore();
-    // void setInnerWall();
     bool makeGateCheck(int num);
     void makeGate();
     void clearGate();
@@ -119,11 +118,6 @@ private:
 
     int stage4InnerY[33] = {2,2,3,3,4,4,4,4,5,5,6,6,7,7,8,8,8,9,10,11,12,13,14,14,15,15,15,15,15,16,17,17,17};
     int stage4InnerX[33] = {2,5,2,5,2,3,4,5,2,5,2,5,2,5,11,12,13,13,13,13,13,13,4,13,4,13,14,15,16,4,3,4,5};
-
-
-    //test
-    int test = 1;
-
     char gameBoard[21][21] = {
                 {'2', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '2'},
                 {'1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1'},

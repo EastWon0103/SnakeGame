@@ -26,8 +26,6 @@ int main(){
     time_t eatTimeStart = time(NULL);
     SnakeGame game(BOARD_ROW, BOARD_COL);
 
-
-    // 여기 
     time_t st = time(NULL);
     while(!game.isOver()){
         time_t checkPoint = time(NULL);
@@ -35,29 +33,11 @@ int main(){
         time_t wallEnd = time(NULL);
         time_t timeItemInitEnd = time(NULL);
         time_t eatTimeEnd = time(NULL);
-
-        //여기
-        // time_t ed = time(NULL);
-        // if((double)(ed-st) >= 3){
-        //     if(game.canMakeInner()){
-        //         game.changeMap();
-        //     }
-        //     if(game.get()<5){
-        //         game.plus();
-        //     }
-            
-        //     st = time(NULL);
-        // }
-
         game.missionUpdate();
         if ((game.isMissionComplete == true && game.getStage() < 4)&&(game.canMakeInner()))
         {   
             game.changeMap();
             game.isMissionComplete = false;
-            // if(game.canMakeInner()){
-            //     game.changeMap();
-            // }
-            //스테이지 변경 로직
         }
 
         if((double)(timeScore-scoreStart) >= 1){
